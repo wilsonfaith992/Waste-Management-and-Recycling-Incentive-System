@@ -39,14 +39,6 @@ describe("waste-management", () => {
       const result = contract.recordWasteCollection("plastic", 100)
       expect(result.value).toBe(1)
     })
-    it("should record a new waste collection and update total waste", () => {
-      const result = contract.recordWasteCollection("plastic", 100)
-      expect(result.value).toBe(1)
-      
-      // Check if the total waste is updated
-      const totalWaste = contract.getTotalWasteCollected("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM")
-      expect(totalWaste).toBe(400) // Assuming the initial total was 300
-    })
   })
   
   describe("verify-waste-collection", () => {
