@@ -11,3 +11,5 @@ N
 tests/waste-management.test.ts,e/6/e6211d71c70ae4ecb035631d84b56768d4bb7580
 Y
 )contracts/recycling-achievement-nfts.clar,d/0/d05d67f472afca6224c80705d49a73b0e9deb502
+X
+(tests/recycling-achievement-nfts.test.ts,b/1/b1b6926fa23cc74d897c632bb79ba7dd07607963
