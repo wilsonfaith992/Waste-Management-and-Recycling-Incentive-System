@@ -9,3 +9,5 @@ O
 contracts/waste-management.clar,1/5/1573d15b30f7d80b61bd569514296321cb87ec60
 N
 tests/waste-management.test.ts,e/6/e6211d71c70ae4ecb035631d84b56768d4bb7580
+Y
+)contracts/recycling-achievement-nfts.clar,d/0/d05d67f472afca6224c80705d49a73b0e9deb502
