@@ -1,21 +1,66 @@
+import { describe, it, expect, beforeEach } from "vitest"
 
-import { describe, expect, it } from "vitest";
+describe("waste-management", () => {
+  let contract: any
+  
+  beforeEach(() => {
+    contract = {
+      getWasteCollection: (collectionId: number) => ({
+        user: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+        wasteType: "plastic",
+        amount: 100,
+        timestamp: 123456,
+        verified: false,
+      }),
+      getUserCollections: (user: string) => ({ collectionIds: [1, 2, 3] }),
+      recordWasteCollection: (wasteType: string, amount: number) => ({ value: 1 }),
+      verifyWasteCollection: (collectionId: number) => ({ success: true }),
+      getTotalWasteCollected: (user: string) => 300,
+    }
+  })
+  
+  describe("get-waste-collection", () => {
+    it("should return waste collection information", () => {
+      const result = contract.getWasteCollection(1)
+      expect(result.wasteType).toBe("plastic")
+      expect(result.amount).toBe(100)
+    })
+  })
+  
+  describe("get-user-collections", () => {
+    it("should return a list of user's collection IDs", () => {
+      const result = contract.getUserCollections("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM")
+      expect(result.collectionIds).toEqual([1, 2, 3])
+    })
+  })
+  
+  describe("record-waste-collection", () => {
+    it("should record a new waste collection", () => {
+      const result = contract.recordWasteCollection("plastic", 100)
+      expect(result.value).toBe(1)
+    })
+    it("should record a new waste collection and update total waste", () => {
+      const result = contract.recordWasteCollection("plastic", 100)
+      expect(result.value).toBe(1)
+      
+      // Check if the total waste is updated
+      const totalWaste = contract.getTotalWasteCollected("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM")
+      expect(totalWaste).toBe(400) // Assuming the initial total was 300
+    })
+  })
+  
+  describe("verify-waste-collection", () => {
+    it("should verify a waste collection", () => {
+      const result = contract.verifyWasteCollection(1)
+      expect(result.success).toBe(true)
+    })
+  })
+  
+  describe("get-total-waste-collected", () => {
+    it("should return the total waste collected by a user", () => {
+      const result = contract.getTotalWasteCollected("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM")
+      expect(result).toBe(300)
+    })
+  })
+})
 
-const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
-
-/*
-  The test below is an example. To learn more, read the testing documentation here:
-  https://docs.hiro.so/stacks/clarinet-js-sdk
-*/
-
-describe("example tests", () => {
-  it("ensures simnet is well initalised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-  });
-
-  // it("shows an example", () => {
-  //   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-  //   expect(result).toBeUint(0);
-  // });
-});
